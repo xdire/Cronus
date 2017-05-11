@@ -1,0 +1,23 @@
+{
+  "name": "xdire/cronus",
+  "description": "God of time",
+  "license": "MIT",
+  "keywords": ["Cronus","date","php"],
+  "authors": [
+    {
+      "name": "Anton Repin",
+      "email": "ar@xdire.io"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Xdire\\Cronus\\": "src"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.1"
+  }
+}
