@@ -32,8 +32,6 @@ class DateTest extends TestCase
 
     }
 
-
-
     function testIncrementBy5Days() {
 
         $de = new Date("2017-08-01 12:01:35");
@@ -130,6 +128,17 @@ class DateTest extends TestCase
 
         $this->assertEquals(
             date("Y-m-d H:i:s", strtotime("+1400 days", strtotime("2016-08-01 12:01:35"))),
+            $de->toString());
+
+    }
+
+    function testIncrementBy2800Days() {
+
+        $de = new Date("2016-08-01 12:01:35");
+        $de->incrementDays(2800);
+
+        $this->assertEquals(
+            date("Y-m-d H:i:s", strtotime("+2800 days", strtotime("2016-08-01 12:01:35"))),
             $de->toString());
 
     }

@@ -70,17 +70,9 @@ abstract class Date
     }
 
     /**
-     * @return int
-     */
-    public function getTimeZoneHourOffset()
-    {
-        return $this->timeZone;
-    }
-
-    /**
      * @param int $timeZone
      */
-    protected function setTimeZoneHourOffset($timeZone)
+    protected final function setTimeZoneHourOffset($timeZone)
     {
         $this->timeZone = (int)$timeZone * 60;
     }
@@ -88,7 +80,7 @@ abstract class Date
     /**
      * @param int $timeZoneOffset
      */
-    protected function setTimeZoneMinuteOffset($timeZoneOffset)
+    protected final function setTimeZoneMinuteOffset($timeZoneOffset)
     {
         $this->timeZone = (int)$timeZoneOffset;
     }
@@ -101,6 +93,42 @@ abstract class Date
     protected final function getDaysInMonth($year, $mon)
     {
         return ($year % 4 === 0) ? self::$monthDaysLeap[$mon-1] : self::$monthDaysNormal[$mon-1];
+    }
+
+    /*  ------------------------------------------------------------------------------------------
+     *
+     *
+     *                                  Comparison methods
+     *
+     *
+        ------------------------------------------------------------------------------------------*/
+
+    public function isGreater(Date $date) {
+
+    }
+
+    public function isLesser(Date $date) {
+
+    }
+
+    public function isEqual(Date $date) {
+
+    }
+
+    /*  ------------------------------------------------------------------------------------------
+     *
+     *
+     *                                  GET / SET Methods
+     *
+     *
+        ------------------------------------------------------------------------------------------*/
+
+    /**
+     * @return int
+     */
+    public function getTimeZoneHourOffset()
+    {
+        return $this->timeZone;
     }
 
     /**
@@ -245,10 +273,21 @@ abstract class Date
 
     }
 
-    /**
-     * Increment days
+    /*  ------------------------------------------------------------------------------------------
      *
-     * @see \DateEntityTest
+     *
+     *                                          Behavior methods
+     *
+     *
+        ------------------------------------------------------------------------------------------*/
+
+    /**
+     * Increment days algorithm,
+     * will be incrementing days
+     * month by month
+     *
+     * Tested:
+     * @see \DateTest
      *
      * @param int $days
      */
@@ -262,7 +301,7 @@ abstract class Date
 
             if($left > 0) {
 
-                // Increment
+                // Increment months
                 if(++$this->month > 12) {
                     $this->month = 1;
                     $this->year++;
@@ -278,6 +317,21 @@ abstract class Date
 
                 $this->day += $days;
                 $days = 0;
+
+                // If days got over the current month possible days
+                if($this->day > $currentMonthDays) {
+
+                    // Calculate difference
+                    $rest = $this->day - $currentMonthDays;
+                    // Increment months
+                    if(++$this->month > 12) {
+                        $this->month = 1;
+                        $this->year++;
+                    }
+                    // Assign rest
+                    $this->day = $rest;
+
+                }
 
             }
 
@@ -377,7 +431,7 @@ abstract class Date
      */
     protected final function incrementByYears($years)
     {
-        $this->year+=$years;
+        $this->year += $years;
     }
 
     /**
@@ -385,7 +439,7 @@ abstract class Date
      */
     protected final function decrementByYears($years)
     {
-        $this->year-=$years;
+        $this->year -= $years;
     }
 
 }
