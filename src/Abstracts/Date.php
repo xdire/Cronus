@@ -103,6 +103,8 @@ abstract class Date
      *
         ------------------------------------------------------------------------------------------*/
     /**
+     * Check if current date will be happened after some other date
+     *
      * @param   Date $date
      * @return  bool
      */
@@ -121,6 +123,8 @@ abstract class Date
     }
 
     /**
+     * Check if current date happened to be earlier than some other date
+     *
      * @param   Date $date
      * @return  bool
      */
@@ -139,6 +143,8 @@ abstract class Date
     }
 
     /**
+     * Check if current date is equal to some other date
+     *
      * @param   Date $date
      * @return  bool
      */
@@ -150,6 +156,23 @@ abstract class Date
             && $date->hour === $this->hour
             && $date->minute === $this->minute
             && $date->second === $this->second)
+            return true;
+
+        return false;
+
+    }
+
+    /**
+     * Check if current date is in range of other 2 dates
+     *
+     * @param   Date $dateStart
+     * @param   Date $dateEnd
+     * @return  bool
+     */
+    public function isInRange(Date $dateStart, Date $dateEnd) {
+
+        if(($this->isGreater($dateStart) || $this->isEqual($dateStart))
+            && ($this->isLesser($dateEnd) || $this->isEqual($dateEnd)))
             return true;
 
         return false;
