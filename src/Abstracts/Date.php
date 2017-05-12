@@ -102,16 +102,57 @@ abstract class Date
      *
      *
         ------------------------------------------------------------------------------------------*/
-
+    /**
+     * @param   Date $date
+     * @return  bool
+     */
     public function isGreater(Date $date) {
 
+        if($date->year <= $this->year
+            && $date->month <= $this->month
+            && $date->day <= $this->day
+            && $date->hour <= $this->hour
+            && $date->minute <= $this->minute
+            && $date->second < $this->second)
+            return true;
+
+        return false;
+
     }
 
+    /**
+     * @param   Date $date
+     * @return  bool
+     */
     public function isLesser(Date $date) {
 
+        if($date->year >= $this->year
+            && $date->month >= $this->month
+            && $date->day >= $this->day
+            && $date->hour >= $this->hour
+            && $date->minute >= $this->minute
+            && $date->second > $this->second)
+            return true;
+
+        return false;
+
     }
 
+    /**
+     * @param   Date $date
+     * @return  bool
+     */
     public function isEqual(Date $date) {
+
+        if($date->year === $this->year
+            && $date->month === $this->month
+            && $date->day === $this->day
+            && $date->hour === $this->hour
+            && $date->minute === $this->minute
+            && $date->second === $this->second)
+            return true;
+
+        return false;
 
     }
 
