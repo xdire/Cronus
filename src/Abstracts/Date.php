@@ -110,13 +110,41 @@ abstract class Date
      */
     public function isGreater(Date $date) {
 
-        if($date->year <= $this->year
-            && $date->month <= $this->month
-            && $date->day <= $this->day
-            && $date->hour <= $this->hour
-            && $date->minute <= $this->minute
-            && $date->second < $this->second)
+        if($date->year < $this->year)
+
             return true;
+
+        elseif ($date->year === $this->year) {
+
+            if($date->month < $this->month)
+
+                return true;
+
+            else if($date->month === $this->month && $date->day <= $this->day) {
+
+                if($date->day < $this->day)
+                    return true;
+
+                elseif ($date->day === $this->day) {
+
+                    if($date->hour < $this->hour)
+                        return true;
+
+                    elseif ($date->hour === $this->hour) {
+
+                        if($date->minute < $this->minute)
+                            return true;
+
+                        if($date->minute === $this->minute && $date->second < $this->second)
+                            return true;
+
+                    }
+
+                }
+
+            }
+
+        }
 
         return false;
 
@@ -130,13 +158,39 @@ abstract class Date
      */
     public function isLesser(Date $date) {
 
-        if($date->year >= $this->year
-            && $date->month >= $this->month
-            && $date->day >= $this->day
-            && $date->hour >= $this->hour
-            && $date->minute >= $this->minute
-            && $date->second > $this->second)
+        if($date->year > $this->year)
             return true;
+
+        elseif ($date->year === $this->year) {
+
+            if($date->month > $this->month)
+                return true;
+
+            elseif ($date->month === $this->month && $date->day >= $this->day) {
+
+                if($date->day > $this->day)
+                    return true;
+
+                elseif ($date->day === $this->day) {
+
+                    if($date->hour > $this->hour)
+                        return true;
+
+                    elseif ($date->hour === $this->hour) {
+
+                        if($date->minute > $this->minute)
+                            return true;
+
+                        elseif ($date->minute === $this->minute && $date->second < $this->second)
+                            return true;
+
+                    }
+
+                }
+
+            }
+
+        }
 
         return false;
 
