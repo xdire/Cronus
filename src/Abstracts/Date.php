@@ -6,7 +6,9 @@
  * @date   5/10/17
  */
 
-abstract class Date
+use Xdire\Cronus\Interfaces\Date as DateInterface;
+
+abstract class Date implements DateInterface
 {
     /** @var int[]  */
     private static $monthDaysNormal = [31,28,31,30,31,30,31,31,30,31,30,31];
@@ -105,37 +107,37 @@ abstract class Date
     /**
      * Check if current date will be happened after some other date
      *
-     * @param   Date $date
+     * @param   DateInterface $date
      * @return  bool
      */
-    public function isGreater(Date $date) {
+    public function isGreater(DateInterface $date) {
 
-        if($date->year < $this->year)
+        if($date->getYear() < $this->year)
 
             return true;
 
-        elseif ($date->year === $this->year) {
+        elseif ($date->getYear() === $this->year) {
 
-            if($date->month < $this->month)
+            if($date->getMonth() < $this->month)
 
                 return true;
 
-            else if($date->month === $this->month && $date->day <= $this->day) {
+            else if($date->getMonth() === $this->month && $date->getDay() <= $this->day) {
 
-                if($date->day < $this->day)
+                if($date->getDay() < $this->day)
                     return true;
 
-                elseif ($date->day === $this->day) {
+                elseif ($date->getDay() === $this->day) {
 
-                    if($date->hour < $this->hour)
+                    if($date->getHour() < $this->hour)
                         return true;
 
-                    elseif ($date->hour === $this->hour) {
+                    elseif ($date->getHour() === $this->hour) {
 
-                        if($date->minute < $this->minute)
+                        if($date->getMinute() < $this->minute)
                             return true;
 
-                        if($date->minute === $this->minute && $date->second < $this->second)
+                        if($date->getMinute() === $this->minute && $date->getSecond() < $this->second)
                             return true;
 
                     }
@@ -153,35 +155,35 @@ abstract class Date
     /**
      * Check if current date happened to be earlier than some other date
      *
-     * @param   Date $date
+     * @param   DateInterface $date
      * @return  bool
      */
-    public function isLesser(Date $date) {
+    public function isLesser(DateInterface $date) {
 
-        if($date->year > $this->year)
+        if($date->getYear() > $this->year)
             return true;
 
-        elseif ($date->year === $this->year) {
+        elseif ($date->getYear() === $this->year) {
 
-            if($date->month > $this->month)
+            if($date->getMonth() > $this->month)
                 return true;
 
-            elseif ($date->month === $this->month && $date->day >= $this->day) {
+            elseif ($date->getMonth() === $this->month && $date->getDay() >= $this->day) {
 
-                if($date->day > $this->day)
+                if($date->getDay() > $this->day)
                     return true;
 
-                elseif ($date->day === $this->day) {
+                elseif ($date->getDay() === $this->day) {
 
-                    if($date->hour > $this->hour)
+                    if($date->getHour() > $this->hour)
                         return true;
 
-                    elseif ($date->hour === $this->hour) {
+                    elseif ($date->getHour() === $this->hour) {
 
-                        if($date->minute > $this->minute)
+                        if($date->getMinute() > $this->minute)
                             return true;
 
-                        elseif ($date->minute === $this->minute && $date->second < $this->second)
+                        elseif ($date->getMinute() === $this->minute && $date->getSecond() < $this->second)
                             return true;
 
                     }
@@ -199,17 +201,17 @@ abstract class Date
     /**
      * Check if current date is equal to some other date
      *
-     * @param   Date $date
+     * @param   DateInterface $date
      * @return  bool
      */
-    public function isEqual(Date $date) {
+    public function isEqual(DateInterface $date) {
 
-        if($date->year === $this->year
-            && $date->month === $this->month
-            && $date->day === $this->day
-            && $date->hour === $this->hour
-            && $date->minute === $this->minute
-            && $date->second === $this->second)
+        if($date->getYear() === $this->year
+            && $date->getMonth() === $this->month
+            && $date->getDay() === $this->day
+            && $date->getHour() === $this->hour
+            && $date->getMinute() === $this->minute
+            && $date->getSecond() === $this->second)
             return true;
 
         return false;
@@ -219,11 +221,11 @@ abstract class Date
     /**
      * Check if current date is in range of other 2 dates
      *
-     * @param   Date $dateStart
-     * @param   Date $dateEnd
+     * @param   DateInterface $dateStart
+     * @param   DateInterface $dateEnd
      * @return  bool
      */
-    public function isInRange(Date $dateStart, Date $dateEnd) {
+    public function isInRange(DateInterface $dateStart, DateInterface $dateEnd) {
 
         if(($this->isGreater($dateStart) || $this->isEqual($dateStart))
             && ($this->isLesser($dateEnd) || $this->isEqual($dateEnd)))
